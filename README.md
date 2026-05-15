@@ -6,7 +6,7 @@ Bulk RNA-seq analysis comparing basal chemical defensome gene expression between
 
 ## Background
 
-The chemical defensome consists of genes encoding transcription factors, biotransformation enzymes, transporters, and antioxidant proteins that collectively mediate xenobiotic detoxification and elimination. While the liver defensome has been relatively well characterized in zebrafish, basal expression in tissues directly involved in xenobiotic uptake — such as the gut and gill — is largely unexplored.
+The chemical defensome consists of genes encoding transcription factors, biotransformation enzymes, transporters, and antioxidant proteins that collectively mediate xenobiotic detoxification and elimination. While the liver defensome has been relatively well characterized in zebrafish, basal expression in tissues directly involved in xenobiotic uptake (such as the gut and gill) is largely unexplored.
 
 This analysis uses publicly available control RNA-seq data from Xue et al. (2021) (NCBI BioProject: [PRJNA662254](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA662254) and [PRJNA670521](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA670521)), consisting of non-exposed adult male zebrafish sampled from gut and gill tissue. Repurposing existing public data avoided the need for a new experiment while providing suitable controls for a basal expression comparison.
 
@@ -37,12 +37,12 @@ All samples are pooled from 5 healthy adult male zebrafish per replicate. Librar
 
 Two parallel pipelines were implemented and compared:
 
-**Pipeline 1 — Pseudo-mapping (Salmon + tximport + DESeq2)**
+**Pipeline 1 - Pseudo-mapping (Salmon + tximport + DESeq2)**
 ```
 Raw FASTQ → FastQC → Trimmomatic → Salmon → tximport → DESeq2 → GO analysis
 ```
 
-**Pipeline 2 — Splice-aware mapping (HISAT2 + HTSeq + DESeq2)**
+**Pipeline 2 - Splice-aware mapping (HISAT2 + HTSeq + DESeq2)**
 ```
 Raw FASTQ → FastQC → Trimmomatic → HISAT2 → SAMtools → HTSeq-count → DESeq2 → GO analysis
 ```
@@ -64,12 +64,12 @@ Raw FASTQ → FastQC → Trimmomatic → HISAT2 → SAMtools → HTSeq-count →
 **PCA:** Clear separation of gut and gill samples, with PC1 and PC2 explaining 93% (Pipeline 1) and 97% (Pipeline 2) of variance, confirming strong tissue-specific transcriptomic differences.
 
 **Defensome DEGs:**
-- Pipeline 1 (Salmon): 314 differentially expressed defensome genes — 230 upregulated, 84 downregulated in gut vs gill
-- Pipeline 2 (HISAT2): 374 differentially expressed defensome genes — 283 upregulated, 91 downregulated in gut vs gill
+- Pipeline 1 (Salmon): 314 differentially expressed defensome genes (230 upregulated, 84 downregulated in gut vs gill)
+- Pipeline 2 (HISAT2): 374 differentially expressed defensome genes (283 upregulated, 91 downregulated in gut vs gill)
 
 **GO Enrichment:**
-- *Gut* upregulation: xenobiotic metabolic processes, sulfation, glutathione metabolism, cytochrome P450 activity — suggesting greater detoxification capacity in the intestine
-- *Gill* upregulation: metal ion transport, protein folding, prostaglandin biosynthesis — consistent with the gill's role in ion homeostasis and environmental stress response
+- *Gut* upregulation: xenobiotic metabolic processes, sulfation, glutathione metabolism, cytochrome P450 activity (suggesting greater detoxification capacity in the intestine)
+- *Gill* upregulation: metal ion transport, protein folding, prostaglandin biosynthesis (consistent with the gill's role in ion homeostasis and environmental stress response)
 
 **Pipeline comparison:** Pipelines 1 and 2 showed strong overlap in top DEGs with highly similar log2 fold changes (e.g. *abcb4*: 8.64 vs 8.74). Pipeline 2 detected more total DEGs (12,550 vs 7,230), likely due to HISAT2's improved sensitivity for lowly abundant transcripts. Only 4 of the top 10 defensome DEGs were shared between pipelines, highlighting the importance of pipeline selection for downstream interpretation.
 
